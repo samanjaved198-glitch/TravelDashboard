@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Wanderly</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-plane"></div></div>
+<div id="scroll-progress"></div>
+
+<div class="dash-body">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="logo">Wanderly<span class="dot">.</span></a>
+    <nav class="side-nav" id="side-nav">
+      <a href="#dashboard" data-view="dashboard" class="active"><span class="ico">📊</span> Dashboard</a>
+      <a href="#bookings" data-view="bookings"><span class="ico">🧳</span> Bookings</a>
+      <a href="#wishlist" data-view="wishlist"><span class="ico">❤️</span> Wishlist</a>
+      <a href="#notifications" data-view="notifications"><span class="ico">🔔</span> Notifications</a>
+      <a href="#payments" data-view="payments"><span class="ico">💳</span> Payments</a>
+      <a href="#settings" data-view="settings"><span class="ico">⚙️</span> Settings</a>
+    </nav>
+    <div class="logout-link">
+      <a href="#" data-logout><span class="ico">🚪</span> Logout</a>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <button class="hamburger" id="sidebar-toggle" aria-label="Toggle sidebar" style="display:flex;"><span></span><span></span><span></span></button>
+
+      <div class="dash-search">
+        <span>🔍</span>
+        <input type="text" id="global-search" placeholder="Search bookings, destinations...">
+      </div>
+
+      <div class="nav-actions">
+        <button class="icon-btn" aria-label="Messages">💬</button>
+        <button class="icon-btn" id="topbar-wishlist-btn" aria-label="Wishlist">❤️<span class="badge" id="topbar-wishlist-badge">0</span></button>
+        <button class="icon-btn" id="topbar-notif-btn" aria-label="Notifications">🔔<span class="badge" id="notif-count">0</span></button>
+        <button class="icon-btn dm-toggle" id="dark-toggle" aria-label="Toggle dark mode"></button>
+        <div class="dash-profile" id="dash-profile-chip">
+          <div class="avatar" id="dash-avatar">RA</div>
+          <div class="info">
+            <div class="n" id="dash-user-name">Guest</div>
+            <div class="r">Traveler</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-content">
+
+      <!-- ============ VIEW: DASHBOARD ============ -->
+      <section class="view" id="view-dashboard">
+        <h1 id="dash-welcome">Welcome back, Guest 👋</h1>
+        <p class="dash-sub">Here's what's happening with your trips today.</p>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="top"><div class="ico" style="background:var(--primary)">🧳</div></div>
+            <div class="val" id="stat-total">0</div>
+            <div class="lbl">Total Trips</div>
+            <div class="trend up">▲ this year</div>
+          </div>
+          <div class="stat-card">
+            <div class="top"><div class="ico" style="background:var(--secondary)">🛫</div></div>
+            <div class="val" id="stat-upcoming">0</div>
+            <div class="lbl">Upcoming Trips</div>
+            <div class="trend up">▲ confirmed</div>
+          </div>
+          <div class="stat-card">
+            <div class="top"><div class="ico" style="background:#EF4444">✖</div></div>
+            <div class="val" id="stat-cancelled">0</div>
+            <div class="lbl">Cancelled Trips</div>
+            <div class="trend down">▼ refunded</div>
+          </div>
+          <div class="stat-card">
+            <div class="top"><div class="ico" style="background:var(--accent)">❤️</div></div>
+            <div class="val" id="stat-wishlist">0</div>
+            <div class="lbl">Wishlist</div>
+            <div class="trend up">▲ saved</div>
+          </div>
+          <div class="stat-card">
+            <div class="top"><div class="ico" style="background:#10B981">💰</div></div>
+            <div class="val" id="stat-spending">$0</div>
+            <div class="lbl">Total Spending</div>
+            <div class="trend up">▲ lifetime</div>
+          </div>
+        </div>
+
+        <div class="dash-grid-2">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Recent Bookings</h3>
+              <button class="btn btn-primary btn-sm" id="add-booking-btn-dash">+ Add Booking</button>
+            </div>
+            <div class="table-wrap">
+              <table class="booking-table">
+                <thead>
+                  <tr><th>Destination</th><th>Date</th><th>Travelers</th><th>Price</th><th>Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="booking-table-body-dash"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><h3>Recent Activity</h3></div>
+            <div class="activity-list" id="activity-list"></div>
+          </div>
+        </div>
+
+        <div class="widgets-grid">
+          <div class="panel weather-widget">
+            <div class="panel-head"><h3 style="color:#fff">Weather</h3></div>
+            <div class="loc" id="weather-loc">Karachi, PK</div>
+            <div class="temp" id="weather-temp">31°C</div>
+            <div class="meta">
+              <div>Wind<span id="weather-wind">14 km/h</span></div>
+              <div>Humidity<span id="weather-humidity">58%</span></div>
+            </div>
+          </div>
+
+          <div class="panel currency-widget">
+            <div class="panel-head"><h3>Currency Converter</h3></div>
+            <div class="conv-row">
+              <input type="number" id="cur-amount" value="100" min="0">
+              <select id="cur-from">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="PKR">PKR</option>
+                <option value="AED">AED</option>
+                <option value="JPY">JPY</option>
+              </select>
+            </div>
+            <div class="conv-row">
+              <button class="swap-btn" id="cur-swap" aria-label="Swap currencies">⇅</button>
+              <select id="cur-to">
+                <option value="PKR">PKR</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="AED">AED</option>
+                <option value="JPY">JPY</option>
+              </select>
+            </div>
+            <div class="result" id="cur-result">—</div>
+          </div>
+
+          <div class="panel tips-widget">
+            <div class="panel-head">
+              <h3>Travel Tip</h3>
+              <button class="btn-icon icon-btn" id="tip-refresh" aria-label="New tip">🔄</button>
+            </div>
+            <div class="tip-box" id="tip-box">Loading tip...</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Destination Gallery</h3></div>
+          <div class="gallery-grid" id="gallery-grid"></div>
+        </div>
+      </section>
+
+      <!-- ============ VIEW: BOOKINGS ============ -->
+      <section class="view hidden" id="view-bookings">
+        <h1>My Bookings</h1>
+        <p class="dash-sub">Manage every trip you've booked, edit or cancel anytime.</p>
+
+        <div class="filter-bar">
+          <input type="text" id="booking-search" placeholder="🔍 Search by destination">
+          <select id="booking-status-filter">
+            <option value="">All Status</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="pending">Pending</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <button class="btn btn-primary" id="add-booking-btn">+ Add Booking</button>
+        </div>
+
+        <div class="panel">
+          <div class="table-wrap">
+            <table class="booking-table">
+              <thead>
+                <tr><th>Destination</th><th>Date</th><th>Travelers</th><th>Price</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody id="booking-table-body"></tbody>
+            </table>
+          </div>
+          <div class="empty-state hidden" id="booking-empty">
+            <div class="ico">🧳</div>
+            <p>No bookings yet — add your first trip.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ VIEW: WISHLIST ============ -->
+      <section class="view hidden" id="view-wishlist">
+        <div class="panel-head" style="padding:0; margin-bottom:0.25rem;">
+          <div>
+            <h1>Wishlist</h1>
+            <p class="dash-sub">Destinations you've saved for later.</p>
+          </div>
+          <button class="btn btn-primary" id="add-wishlist-btn">+ Add to Wishlist</button>
+        </div>
+        <div class="gallery-grid" id="wishlist-grid"></div>
+        <div class="empty-state hidden" id="wishlist-empty">
+          <div class="ico">❤️</div>
+          <p>Nothing saved yet — tap the heart on any destination, or add your own above.</p>
+        </div>
+      </section>
+
+      <!-- ============ VIEW: NOTIFICATIONS ============ -->
+      <section class="view hidden" id="view-notifications">
+        <h1>Notifications</h1>
+        <p class="dash-sub">Stay up to date with your trips and account.</p>
+        <div class="panel">
+          <div class="panel-head">
+            <h3>All Notifications</h3>
+            <div style="display:flex; gap:0.5rem;">
+              <button class="btn btn-ghost btn-sm" id="notif-mark-read">Mark all read</button>
+              <button class="btn btn-ghost btn-sm" id="notif-clear">Clear all</button>
+            </div>
+          </div>
+          <div class="activity-list" id="notifications-list"></div>
+        </div>
+      </section>
+
+      <!-- ============ VIEW: PAYMENTS ============ -->
+      <section class="view hidden" id="view-payments">
+        <h1>Payments</h1>
+        <p class="dash-sub">Your billing history for every booking.</p>
+        <div class="panel">
+          <div class="table-wrap">
+            <table class="booking-table">
+              <thead><tr><th>Booking</th><th>Date</th><th>Method</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody id="payments-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ VIEW: SETTINGS ============ -->
+      <section class="view hidden" id="view-settings">
+        <h1>Settings</h1>
+        <p class="dash-sub">Manage your account and preferences.</p>
+
+        <div class="settings-grid">
+          <div class="panel">
+            <div class="panel-head"><h3>Preferences</h3></div>
+            <div class="settings-row">
+              <div><div class="lbl">Dark Mode</div><div class="sub">Switch between light and dark theme</div></div>
+              <button class="dm-toggle" id="dark-toggle-settings" aria-label="Toggle dark mode"></button>
+            </div>
+            <div class="settings-row">
+              <div><div class="lbl">Email Notifications</div><div class="sub">Get updates about your bookings</div></div>
+              <button class="dm-toggle active" id="notif-toggle" aria-label="Toggle notifications"></button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><h3>Profile</h3></div>
+            <div class="form-group">
+              <label for="set-name">Full Name</label>
+              <input type="text" id="set-name" value="Rana">
+            </div>
+            <div class="form-group">
+              <label for="set-email">Email</label>
+              <input type="email" id="set-email" value="rana@example.com">
+            </div>
+            <button class="btn btn-primary btn-block" id="save-settings-btn">Save Changes</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- ===================== BOOKING MODAL ===================== -->
+<div class="modal-overlay" id="booking-modal">
+  <div class="modal">
+    <h3 id="booking-modal-title">Add Booking</h3>
+    <form id="booking-form" novalidate>
+      <input type="hidden" id="booking-id">
+      <div class="form-group">
+        <label for="b-destination">Destination</label>
+        <input type="text" id="b-destination" placeholder="e.g. Paris, France">
+        <div class="error-msg">Please enter a destination.</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="b-date">Travel Date</label>
+          <input type="date" id="b-date">
+          <div class="error-msg">Please choose a valid date.</div>
+        </div>
+        <div class="form-group">
+          <label for="b-travelers">Travelers</label>
+          <input type="number" id="b-travelers" min="1" value="1">
+          <div class="error-msg">At least 1 traveler required.</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="b-price">Price (USD)</label>
+          <input type="number" id="b-price" min="0" value="500">
+          <div class="error-msg">Please enter a valid price.</div>
+        </div>
+        <div class="form-group">
+          <label for="b-status">Status</label>
+          <select id="b-status">
+            <option value="confirmed">Confirmed</option>
+            <option value="pending">Pending</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost btn-block" id="booking-cancel-btn">Cancel</button>
+        <button type="submit" class="btn btn-primary btn-block">Save Booking</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===================== ADD TO WISHLIST MODAL ===================== -->
+<div class="modal-overlay" id="wishlist-modal">
+  <div class="modal">
+    <h3>Add to Wishlist</h3>
+    <form id="wishlist-form" novalidate>
+      <div class="form-group">
+        <label for="w-city">Destination / City</label>
+        <input type="text" id="w-city" placeholder="e.g. Bali, Indonesia">
+        <div class="error-msg">Please enter a destination name.</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="w-country">Country</label>
+          <input type="text" id="w-country" placeholder="e.g. Indonesia">
+        </div>
+        <div class="form-group">
+          <label for="w-price">Est. Price (USD)</label>
+          <input type="number" id="w-price" min="0" value="500">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="w-tag">Short Note</label>
+        <input type="text" id="w-tag" placeholder="e.g. Beaches & temples">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost btn-block" id="wishlist-cancel-btn">Cancel</button>
+        <button type="submit" class="btn btn-primary btn-block">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===================== CONFIRM DELETE MODAL ===================== -->
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal confirm-modal">
+    <div class="warn-icon">⚠</div>
+    <h3>Delete this booking?</h3>
+    <p style="color:var(--text-muted); font-size:0.9rem;">This action can't be undone.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-block" id="confirm-cancel-btn">Cancel</button>
+      <button class="btn btn-danger btn-block" id="confirm-delete-btn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<button id="back-to-top" aria-label="Back to top">↑</button>
+<div id="toast-stack"></div>
+
+<script src="js/darkmode.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/booking.js"></script>
+<script src="js/search.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

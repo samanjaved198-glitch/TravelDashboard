@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wanderly — Modern Travel Booking Platform</title>
+<meta name="description" content="Find and book your next trip — flights, hotels and packages at the best prices.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<!-- ===================== PAGE LOADER ===================== -->
+<div id="page-loader"><div class="loader-plane"></div></div>
+
+<!-- ===================== SCROLL PROGRESS ===================== -->
+<div id="scroll-progress"></div>
+
+<!-- ===================== NAVBAR ===================== -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="logo">Wanderly<span class="dot">.</span></a>
+
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#why">Packages</a>
+      <a href="#reviews">Deals</a>
+      <a href="#footer">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      
+      <a href="dashboard.html#notifications" class="icon-btn" id="nav-notif-btn" aria-label="Notifications">🔔<span class="badge" id="nav-notif-badge">0</span></a>
+      <button class="icon-btn dm-toggle" id="dark-toggle" aria-label="Toggle dark mode"></button>
+      <div id="nav-auth-area" style="display:flex; align-items:center; gap:10px;"></div>
+      <button class="hamburger" id="hamburger-btn" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="#destinations">Destinations</a>
+    <a href="#why">Packages</a>
+    <a href="#reviews">Deals</a>
+    <a href="#footer">Contact</a>
+    <div id="mobile-auth-area" style="display:flex; gap:10px; padding:14px 4% 4px;"></div>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <svg class="flight-path" viewBox="0 0 1200 500" preserveAspectRatio="none">
+    <path d="M -50 380 Q 300 100 650 260 T 1250 120"/>
+    <circle cx="650" cy="260" r="5"/>
+  </svg>
+
+  <div class="container hero-inner">
+    <span class="eyebrow">✈ Trusted by 12,000+ travellers</span>
+    <h1>Find your next <span>adventure</span> with ease</h1>
+    <p>Compare flights, hotels and curated packages from hundreds of partners — then book in a few clicks, at the best price we can find.</p>
+
+    <form class="search-box" id="hero-search-form">
+      <div class="search-field">
+        <label for="s-where">Where do you want to go?</label>
+        <input type="text" id="s-where" name="destination" placeholder="Search a city or country">
+      </div>
+      <div class="search-field">
+        <label for="s-date">Departure</label>
+        <input type="date" id="s-date" name="date">
+      </div>
+      <div class="search-field">
+        <label for="s-travelers">Travelers</label>
+        <select id="s-travelers" name="travelers">
+          <option>1 Traveler</option>
+          <option>2 Travelers</option>
+          <option>3 Travelers</option>
+          <option>4+ Travelers</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <div class="hero-stats">
+      <div class="stat"><div class="num" data-count="12000">0</div><div class="label">Happy Customers</div></div>
+      <div class="stat"><div class="num" data-count="480">0</div><div class="label">Destinations</div></div>
+      <div class="stat"><div class="num" data-count="15">0</div><div class="label">Years Experience</div></div>
+      <div class="stat"><div class="num" data-count="24">0</div><div class="label">Hour Support</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== POPULAR DESTINATIONS ===================== -->
+<section class="section" id="destinations">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Popular Picks</span>
+      <h2>Trending destinations this season</h2>
+      <p>Hand-picked spots our travellers keep coming back to.</p>
+    </div>
+
+    <div class="filter-bar">
+      <input type="text" id="dest-search" placeholder="🔍 Search destination or country">
+      <select id="dest-filter-country">
+        <option value="">All Countries</option>
+      </select>
+      <select id="dest-filter-price">
+        <option value="">Any Price</option>
+        <option value="low">Under $700</option>
+        <option value="mid">$700 – $1000</option>
+        <option value="high">Over $1000</option>
+      </select>
+      <select id="dest-filter-rating">
+        <option value="">Any Rating</option>
+        <option value="4.5">4.5 & up</option>
+        <option value="4.8">4.8 & up</option>
+      </select>
+    </div>
+
+    <div class="destinations-grid" id="destinations-grid"></div>
+  </div>
+</section>
+
+<!-- ===================== WHY CHOOSE US ===================== -->
+<section class="section" id="why">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Why Wanderly</span>
+      <h2>Travel planning, without the stress</h2>
+      <p>Everything you need for a smooth trip, from search to landing.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="icon">💰</div>
+        <h3>Best Price Guarantee</h3>
+        <p>We match any lower price you find within 24 hours of booking.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">🛡️</div>
+        <h3>Safe Travel</h3>
+        <p>Verified partners and flexible cancellation on every package.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">🎧</div>
+        <h3>24/7 Support</h3>
+        <p>Real humans on chat and phone, any time zone, any day.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">⚡</div>
+        <h3>Easy Booking</h3>
+        <p>Book a full trip — flight, stay and transfers — in under 3 minutes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CUSTOMER REVIEWS ===================== -->
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Testimonials</span>
+      <h2>What our travellers say</h2>
+    </div>
+
+    <div class="reviews-wrap">
+      <div class="review-slide active">
+        <div class="stars">★★★★★</div>
+        <p class="quote">Booking through Wanderly was effortless — found a better hotel than I expected, at a lower price than three other sites.</p>
+        <div class="review-avatar">AM</div>
+        <div class="name">Ayesha M.</div>
+        <div class="role">Booked: Switzerland Getaway</div>
+      </div>
+      <div class="review-slide">
+        <div class="stars">★★★★★</div>
+        <p class="quote">The support team rebooked my flight within minutes after a schedule change. Genuinely stress-free experience.</p>
+        <div class="review-avatar">HK</div>
+        <div class="name">Hamza K.</div>
+        <div class="role">Booked: Turkey Package</div>
+      </div>
+      <div class="review-slide">
+        <div class="stars">★★★★☆</div>
+        <p class="quote">Loved the destination filters — narrowed down Japan options by budget and rating in seconds.</p>
+        <div class="review-avatar">SR</div>
+        <div class="name">Sana R.</div>
+        <div class="role">Booked: Japan Explorer</div>
+      </div>
+
+      <div class="reviews-dots" id="reviews-dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Good to know before you go</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-q">Can I cancel or reschedule a booking? <span class="plus">+</span></button>
+        <div class="faq-a">Most packages allow free cancellation up to 48 hours before departure. Reschedule anytime from your dashboard.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How is the best price guarantee applied? <span class="plus">+</span></button>
+        <div class="faq-a">Find a lower public price within 24 hours of booking and we'll refund the difference — no forms, just a chat message.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you support group or family bookings? <span class="plus">+</span></button>
+        <div class="faq-a">Yes — set travelers to 4+ in search and our team will follow up with group rates automatically.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Which payment methods are accepted? <span class="plus">+</span></button>
+        <div class="faq-a">Cards, bank transfer and popular wallets. Payment details are managed from the dashboard's Payments tab.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NEWSLETTER ===================== -->
+<section class="section">
+  <div class="container">
+    <div class="newsletter">
+      <h2>Get deals before everyone else</h2>
+      <p>Weekly fare drops and package discounts, straight to your inbox.</p>
+      <form class="newsletter-form" id="newsletter-form">
+        <input type="email" placeholder="you@example.com" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="logo">Wanderly<span class="dot">.</span></a>
+        <p>Wanderly helps you plan, compare and book trips — flights, stays and full packages — in one place.</p>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">◎</a>
+          <a href="#" aria-label="Twitter">𝕏</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+        </div>
+      </div>
+      <div>
+        <h4>About</h4>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Flights</a></li>
+          <li><a href="#">Hotels</a></li>
+          <li><a href="#">Packages</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@wanderly.com">hello@wanderly.com</a></li>
+          <li><a href="tel:+10000000000">+1 (000) 000-0000</a></li>
+          <li>24/7 live chat on dashboard</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Wanderly. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- ===================== BACK TO TOP ===================== -->
+<button id="back-to-top" aria-label="Back to top">↑</button>
+
+<!-- ===================== TOAST STACK ===================== -->
+<div id="toast-stack"></div>
+
+<script src="js/darkmode.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/search.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

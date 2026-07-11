@@ -1,0 +1,96 @@
+/* ===================================================================
+   Travel Booking Dashboard — Responsive Stylesheet
+   Breakpoints: 1180px (laptop) / 900px (tablet) / 600px (mobile)
+=================================================================== */
+
+/* ===================== LAPTOP (≤1180px) ===================== */
+@media (max-width: 1180px) {
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .destinations-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-grid { grid-template-columns: repeat(3, 1fr); }
+  .widgets-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .dash-grid-2 { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+/* ===================== TABLET (≤900px) ===================== */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+
+  .search-box {
+    grid-template-columns: 1fr 1fr;
+  }
+  .search-box .btn { grid-column: 1 / -1; }
+  .search-field { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+  body.dark .search-field { border-color: var(--dark-border); }
+
+  .hero-stats { gap: 28px; flex-wrap: wrap; }
+
+  .why-grid { grid-template-columns: 1fr 1fr; }
+  .destinations-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0;
+    z-index: 150;
+    transform: translateX(-100%);
+    box-shadow: var(--shadow-lg);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .dash-content { padding: 24px 20px 50px; }
+  .dash-topbar { padding: 14px 20px; }
+  .dash-search { max-width: 220px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .widgets-grid { grid-template-columns: 1fr; }
+
+  .settings-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ===================== MOBILE (≤600px) ===================== */
+@media (max-width: 600px) {
+  .section { padding: 60px 0; }
+  .hero { padding: 80px 0 90px; }
+  .hero-inner { padding: 0 4px; }
+
+  .search-box {
+    grid-template-columns: 1fr;
+    padding: 14px;
+  }
+  .search-field { border-bottom: 1px solid var(--border); }
+  body.dark .search-field { border-color: var(--dark-border); }
+
+  .hero-stats { gap: 20px; }
+  .hero-stats .stat .num { font-size: 1.5rem; }
+
+  .why-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+
+  .newsletter { padding: 34px 20px; }
+  .newsletter-form { flex-direction: column; border-radius: var(--radius-md); }
+  .newsletter-form input, .newsletter-form button { border-radius: var(--radius-sm); }
+
+  .review-slide { padding: 26px 20px; }
+
+  .footer-grid { grid-template-columns: 1fr; text-align: center; }
+  .social-icons { justify-content: center; }
+
+  .dash-topbar { flex-wrap: wrap; gap: 12px; }
+  .dash-search { order: 3; max-width: 100%; }
+  .dash-profile .info { display: none; }
+
+  .stat-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+
+  .modal { padding: 24px 18px; }
+
+  #toast-stack { left: 14px; right: 14px; bottom: 14px; }
+  .toast { min-width: 0; }
+  #back-to-top { bottom: 16px; right: 16px; width: 44px; height: 44px; }
+
+  .filter-bar { flex-direction: column; align-items: stretch; }
+  .filter-bar select, .filter-bar input { width: 100%; }
+}
